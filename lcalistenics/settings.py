@@ -88,16 +88,7 @@ WSGI_APPLICATION = 'lcalistenics.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Django_project',
-        'USER': 'root',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'PASSWORD': '0987654321',
-    }
-}
+DATABASES = os.environ.get('DATABASES')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

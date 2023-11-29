@@ -19,9 +19,11 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              {% if user.username %}
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href={% url 'perfil' %}>Perfil</a>
               </li>
+              {% endif %}
               <li class="nav-item">
                 <a class="nav-link" href={% url 'ubicaciones' %}>Ubicaciones</a>
               </li>
@@ -38,11 +40,11 @@
                 {% if user.username %}
                   <li><a class="dropdown-item" href="#">Perfil</a></li>
                   <li><a class="dropdown-item" href={% url 'salir' %}>Cerrar Sesion</a></li>
+                  <li><a class="dropdown-item" href="#">Bienvenid@ {{ user.username}}</a></li>
                 {% else %}
                   <li><a class="dropdown-item" href={% url 'login' %}>Inicia Sesion</a></li>
                   <li><a class="dropdown-item" href={% url 'registro' %}>Registrate</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
                 {% endif %}
                 </ul>
               </li>
