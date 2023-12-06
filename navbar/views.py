@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-
+from entrenamiento.models import UserProfile
 from navbar.forms import RegisterForm
 
 
@@ -40,32 +40,26 @@ def contacto(request):
     )
 
 
-def rutinas(request):
-    return render(
-        request,
-        'rutinas.html'
-    )
-
-
 def registro(request):
-    data = {
-        'form': RegisterForm()
-    }
     if request.method == 'POST':
-        formulario = RegisterForm(data=request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            data['form'] = formulario
-            user = authenticate(
-                username=formulario.cleaned_data['username'], password=formulario.cleaned_data['password1'])
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
             login(request, user)
-            return redirect('inicio')
+
+            profile_exists = UserProfile.objects.filter(
+                user=request.user).exists()
+            if not profile_exists:
+                UserProfile.objects.create(user=request.user)
+            return redirect('perfil')
+
+    else:
+        form = RegisterForm()
 
     return render(
         request,
         'registration/registro.html',
-        data
-    )
+        context={'form': form})
 
 
 def acceder(request):

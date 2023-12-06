@@ -3,6 +3,7 @@ import os
 import environ
 from pathlib import Path
 
+
 env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,9 +32,11 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
 ]
 PROJECT_APPS = [
     'navbar.apps.NavbarConfig',
+    'entrenamiento.apps.EntrenamientoConfig'
 ]
 TRIRD_PARTY_APPS = [
     'crispy_forms',
@@ -52,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'lcalistenics.urls'
@@ -59,7 +63,7 @@ ROOT_URLCONF = 'lcalistenics.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

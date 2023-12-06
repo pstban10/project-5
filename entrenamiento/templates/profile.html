@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<span class="placeholder col-12 bg-primary"></span>
+<h3>Usuario <strong>{{ perfil.user.username }}</strong></h3>
+<span class="placeholder col-12 bg-primary"></span>
+<h3>Dirección <strong>{{ perfil.address }}</strong></h3>
+<span class="placeholder col-12 bg-primary"></span>
+<h3>Peso <strong>{{ perfil.weight }}</strong></h3>
+<span class="placeholder col-12 bg-primary"></span>
+<h3>Altura <strong>{{ perfil.height }}</strong></h3>
+<span class="placeholder col-12 bg-primary"></span>
+<h3>Nivel de actividad <strong>{{ perfil.activity_level }}</strong></h3>
+<span class="placeholder col-12 bg-primary"></span>
+<h3>fecha de nacimiento <strong>{{ perfil.birth_date }}</strong></h3>
+<span class="placeholder col-12 bg-primary"></span>
+<h3>Genero <strong>{{ perfil.gender }}</strong></h3>
+<span class="placeholder col-12 bg-primary"></span>
+<h3>Observaciones <strong>{{ perfil.observations }}</strong></h3>
+
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href={% url 'edit_perfil' %}><button class="btn btn-primary me-md-2" type="button">Editar perfil</button></a>
+  </div>
+
+
+
+  {% endblock%}

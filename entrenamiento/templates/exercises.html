@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content%}
+<h3>ejercicios de calistenia</h3>
+{% if user.is_authenticated and user.is_superuser %}
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href={% url 'addex' %}><button class="btn btn-primary me-md-2" type="button">agregar ejercicio</button></a>
+    
+  </div>
+{% endif %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ejercicio</th>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Video</th>
+        </tr>
+        <tbody>
+        {% for ejercicio in ejercicios %}
+            <tr>
+                <td>{{ ejercicio.exercise_name }}</td>
+                <td>{{ ejercicio.description }}</td>
+                <td>{{ ejercicio.category }}</td>
+                <td><video width="320" height="240" controls>
+                    <source src="{{ ejercicio.url_video }}" type="video/mp4">
+                </video> </td>
+            </tr>
+        {% endfor %}
+            </tbody>
+    </thead>
+</table>
+{% endblock%}

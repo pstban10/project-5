@@ -7,6 +7,8 @@
     <h1>LOGIN</h1>
 
     {{ form | crispy }}
-    <button type="submit" class="btn btn-primary">inicia sesión</button>
-</form>
+
+    <button type="submit" class="btn btn-primary me-md-2">inicia sesión</button>
+    </form>
+<a href={% url 'registro' %}><button class="btn btn-primary me-md-2" type="submit">Registrate aquí</button></a>
 {% endblock %}
