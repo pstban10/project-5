@@ -11,7 +11,7 @@ class UserProfile(models.Model):
          'Moderadamente activo (moderate exercise/sports 3-5 days/week)'),
         ('very_active', 'Muy activo (hard exercise/sports 6-7 days a week)'),
     ]
-    GENDER_CHOISES = [
+    GENDER_CHOICES = [
         ('Masculino', 'Masculino'),
         ('Femenino', 'Femenino'),
     ]
@@ -36,19 +36,29 @@ class UserProfile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     gender = models.CharField(
         max_length=50,
-        choices=GENDER_CHOISES,
+        choices=GENDER_CHOICES,
         null=True,
         blank=True)
     observations = models.TextField(null=True, blank=True)
+    profile_picture = models.ImageField(
+        upload_to='static/imgs/profile_pics/', null=True, blank=True)
 
     def __str__(self):
         return self.user.username
 
 
 class Exercise(models.Model):
+    CATEGORIA = [
+        ('Traccion', 'Dominadas y FrontLvrs'),
+        ('Empuje', "planchas y PushUp's"),
+        ('Piernas', "Piernitas"),
+        ('Abdomen', "Abdominales"),
+
+    ]
     exercise_name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
-    category = models.CharField(max_length=255, null=True, blank=True)
+    category = models.CharField(
+        choices=CATEGORIA, max_length=255, null=True, blank=True)
     url_video = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
@@ -56,9 +66,26 @@ class Exercise(models.Model):
 
 
 class Routine(models.Model):
+    LEVELS = [
+        ('Básico', 'solo entrenamiento de Fuerza, básicos'),
+        ('Principiante', 'Principiante con bases sólidas'),
+        ('Intermedio', 'Domina perfecto movimientos básicos'),
+        ('Avanzado', 'Domina algunos élementos básicos de tensión'),
+        ('Atleta', 'Domina elementos de tensión y está perfeccionando'),
+
+    ]
+    CATEGORIAS = [
+        ('Básicos', 'entrenamiento de los básicos'),
+        ('Traccion', 'Entrenamiento Enfocado en FrontLever o MuscleUp'),
+        ('Empuje', "Entrenamiento enfocado en planchas y PushUp's"),
+        ('FullBody', 'Entrenamiento de acodicionanmiento'),
+
+    ]
     routine_name = models.CharField(max_length=255)
-    category = models.CharField(max_length=255, null=True, blank=True)
-    level = models.CharField(max_length=50, null=True, blank=True)
+    category = models.CharField(
+        choices=CATEGORIAS, max_length=255, null=True, blank=True)
+    level = models.CharField(
+        choices=LEVELS, max_length=50, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
 
     def __str__(self):

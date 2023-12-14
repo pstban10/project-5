@@ -6,7 +6,7 @@
     <form novalidate action={% url 'addex' %} method='post'>
         {% csrf_token %}
         {{ form | crispy }}
-        <input type='submit' value='agregar'/>
+        <button class="btn btn-primary me-md-2" type="submit">Agregar</button>
     </form>
 </div>
 

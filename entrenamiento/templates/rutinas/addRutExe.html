@@ -1,0 +1,65 @@
+{% extends "base2.html" %}
+{% block content %}
+{% load static %}
+
+
+
+
+<h3>Agrega ejercicios a tu rutina "{{ rutina.routine_name }}"</h3>
+{% if user.is_authenticated %}
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-primary me-md-2" type="button" onclik=>Guardar Rutina</button>
+</div>
+{% endif %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ejercicio</th>
+            <th>Enfoque</th>
+            <th></th>
+
+        </tr>
+        <tbody>
+        {% for ejercicio in ejercicios %}
+            <tr>
+                <td>{{ ejercicio.exercise_name }}</td>
+                <td>{{ ejercicio.category }}</td>
+                <td><button class="btn btn-primary me-md-2" type="button">Agregar</button></td>{% comment %} con este boton quiero agregar ejercicios a esta rutina {% endcomment %}
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </thead>
+</table>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ejercicio</th>
+            <th>Repeticiones</th>
+            <th>Sets</th>
+        </tr>
+
+        <tbody>
+        
+            <tr>
+                <td>{{ ejercicio.exercise_name }}</td>
+                <td><input {{  }} /></td>
+                <td><input {{  }} /></td>
+
+                <td><button class="btn btn-primary me-md-2" type="button">Agregar</button></td>{% comment %} con este boton quiero agregar ejercicios a esta rutina {% endcomment %}
+
+            </tr>
+        
+        </tbody>
+    </thead>
+</table>
+
+<script>
+    function agregarEjercicio(ejercicioId) {
+
+    }
+</script>
+
+{% endblock %}

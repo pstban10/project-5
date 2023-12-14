@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 {% block content %}
 
@@ -7,6 +8,9 @@
     <div class="card-header text-center">
         Registrate
     </div>
+    {% if error %}
+      <p class="alert alert-danger">{{ error }}</p>
+    {% endif %}
     <form action="" method='post'>
         {% csrf_token %}
         <div class="card-body">
@@ -21,3 +25,4 @@
     
 
 {% endblock %}
+

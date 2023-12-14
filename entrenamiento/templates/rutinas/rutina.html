@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+
+
+
+<h3>¿Preparad@?</h3>
+{% if user.is_authenticated %}
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href={% url 'addAgenda' %}><button class="btn btn-primary me-md-2" type="button">Agregar a mi agenda</button></a>
+</div>
+{% endif %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ejercicio</th>
+            <th>Reps</th>
+            <th>Sets</th>
+            <th>Video</th>
+        </tr>
+    <tbody>
+        {% for ejercicio in rutina.routineexercise_set.all %}
+            <tr>
+                <td>{{ ejercicio.exercise.exercise_name }}</td>
+                <td>{{ ejercicio.repetitions }}</td>
+                <td>{{ ejercicio.sets }}</td>
+                <td>{{ ejercicio.exercise.url_video }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </thead>
+</table>
+
+
+
+{% endblock %}
