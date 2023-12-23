@@ -1,0 +1,26 @@
+{% extends "base2.html" %}
+{% block content %}
+
+{% load crispy_forms_tags %}
+
+{% load crispy_forms_tags %}
+<div class="input-group mb-3">
+  <h3 class='mx-auto' style='width: 90%'>Ok, vamos a editar tu perfil {{ perfil.user.username }}</h3>
+    <hr>
+    <p class='mx-auto' style='width: 90%'>completa los siguientes campos con tu información y luego guarda el formulario</p>
+    <div class="card mx-auto" style="width: 90%;">
+    <form novalidate action={% url 'edit_perfil' %} method='post' enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a href={% url 'edit_perfil' %}><button class="btn btn-primary me-md-2" type="submit">Guardar</button></a>
+          </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+  {% endblock%}

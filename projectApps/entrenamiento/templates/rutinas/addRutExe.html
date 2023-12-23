@@ -1,0 +1,64 @@
+{% extends "base2.html" %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<script src="{% static 'js/crearRutina.js' %}"></script>
+
+<h3 class='mx-auto' style='width: 90%'>Agrega ejercicios a tu rutina "{{ rutina.routine_name }}"</h3>
+{% if user.is_authenticated %}
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-primary me-md-2" type="button" onclick="guardarRutina()">Guardar Rutina</button>
+</div>
+{% endif %}
+
+<!-- Tabla para mostrar ejercicios disponibles -->
+<div class="card mx-auto" style="width: 90%;">
+    <div class="card-body">
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ejercicio</th>
+            <th>Enfoque</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ejercicio in ejercicios %}
+        <tr>
+            <td>{{ ejercicio.exercise_name }}</td>
+            <td>{{ ejercicio.category }}</td>
+            <td>
+                <button class="btn btn-primary me-md-2" type="button" onclick="agregarEjercicio('{{ ejercicio.exercise_name }}')">Agregar</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+    </table>
+</div>
+</div>
+
+    <!-- Tabla para mostrar ejercicios agregados -->
+    <form id="form-rutina-exercise" method="post"   action="{% url 'Rutinas' id=rutina.id %}">
+        {% csrf_token %}
+    <div class="card mx-auto" style="width: 90%;">
+        <div class="card-body">
+          <table class="table">
+
+            <tbody id="ejercicios-agregados">
+                <!-- Los ejercicios agregados se mostrarán aquí dinámicamente -->
+                
+            </tbody>
+        </table>
+        <button class="btn btn-primary me-md-2" onclick='guardarCambios()'>Guardar Cambios</button>
+
+        </div>
+      </div>
+    </form>
+
+
+
+
+
+{% endblock %}

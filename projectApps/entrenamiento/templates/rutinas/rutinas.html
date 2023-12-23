@@ -1,0 +1,42 @@
+{% extends "base2.html" %}
+{% block content %}
+{% load static %}
+
+
+
+
+<h3>Rutinas para elegir</h3>
+{% if user.is_authenticated %}
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <a href={% url 'aggRut' %}><button class="btn btn-primary me-md-2" type="button">Crear nueva rutina</button></a>   
+</div>
+{% endif %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Rutina</th>
+            <th>Tipo de rutina</th>
+            <th>Nivel</th>
+            <th>Descripción</th>
+        </tr>
+        <tbody>
+        {% for r in datos.rutinas %}
+            <tr>
+                <td>{{ r.routine_name }}</td>
+                <td>{{ r.category }}</td>
+                <td>{{ r.level }}</td>
+                <td>{{ r.description }}</td>
+                <td><a href={% url 'Rutinas' id=r.id %}><button class="btn btn-primary me-md-2" type="button">ver rutina</button></a></td>
+                {% if user.is_superuser %}
+                    <td><a href={% url 'Rutinas' %}><button class="btn btn-primary me-md-2" type="button">editar rutina</button></a></td>
+                {% endif %}
+
+            </tr>
+        {% endfor %}
+            </tbody>
+    </thead>
+</table>
+
+
+
+{% endblock %}

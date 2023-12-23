@@ -35,8 +35,9 @@ DJANGO_APPS = [
     'django.forms',
 ]
 PROJECT_APPS = [
-    'navbar.apps.NavbarConfig',
-    'entrenamiento.apps.EntrenamientoConfig'
+    'projectApps.navbar.apps.NavbarConfig',
+    'projectApps.entrenamiento.apps.EntrenamientoConfig',
+    'projectApps.agenda.apps.AgendaConfig'
 ]
 TRIRD_PARTY_APPS = [
     'crispy_forms',

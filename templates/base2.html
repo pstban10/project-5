@@ -20,11 +20,11 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href={% url 'ubicaciones' %}>Ubicaciones</a>
+                <a class="nav-link" href={% url 'calendar' %}>Reservar Clase</a>
               </li>
               {% if user.username %}
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href={% url 'rutinas' %}>Rutinas</a>
+                <a class="nav-link" aria-current="page" href={% url 'Rutinas' %}>Rutinas</a>
               </li>
               {% endif %}
 
@@ -32,7 +32,8 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <div class='w-5 img-fluid'>
-                    <img src={% static  'imgs/recursos2.jpg.jpg' %} class="img-thumbnail rounded float-end" alt="foto de perfil"/> 
+                    <img src={% static  'imgs/recursos2.jpg' %} class="rounded float-end" style="width: 40px; height: 40px;" alt="foto de perfil"/> 
+ 
                   </div>
                 </a>
                   <ul class="dropdown-menu">
