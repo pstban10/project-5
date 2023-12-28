@@ -61,8 +61,9 @@ function guardarCambios(routine) {
 
     const jsonEjerciciosAgregados = JSON.stringify(ejerciciosAgregadosData);
 
-    return console.log(jsonEjerciciosAgregados);
+    return jsonEjerciciosAgregados;
 }
+
 
 
 function guardarRutina() {
