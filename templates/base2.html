@@ -24,7 +24,7 @@
               </li>
               {% if user.username %}
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href={% url 'Rutinas' %}>Rutinas</a>
+                <a class="nav-link" aria-current="page" href={% url 'RutinasList' %}>Rutinas</a>
               </li>
               {% endif %}
 
@@ -67,14 +67,14 @@
     {% block content %}
     {% endblock  %}
 
-    <div id='footer' class="card">
-        <div class="card-header">
+    <div id='footer' class="card position-fixed bottom-0 end-0">
+        <div class="card-header ">
           Para recordar siempre
         </div>
         <div class="card-body">
           <blockquote class="blockquote mb-0">
             <p>La Disciplina es el genio de los deseos.</p>
-            <footer class="blockquote-footer">Pedro_eSTeBAN10 <cite title="Source Title">2023</cite></footer>
+            <footer class="blockquote-footer">Pstban10 <cite title="Source Title">2023</cite></footer>
           </blockquote>
         </div>
       </div>

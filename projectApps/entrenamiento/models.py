@@ -42,7 +42,7 @@ class UserProfile(models.Model):
     observations = models.CharField(
         max_length=600, null=True, blank=True)
     profile_picture = models.ImageField(
-        upload_to='static\imgs\profile_pics', null=True, blank=True)
+        upload_to='imgsprofile_pics', null=True, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -98,9 +98,6 @@ class RoutineExercise(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     repetitions = models.IntegerField()
     sets = models.IntegerField()
-
-    class Meta:
-        unique_together = ('routine', 'exercise')
 
 
 class UserRoutine(models.Model):

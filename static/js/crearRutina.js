@@ -48,21 +48,22 @@ function eliminarEjercicio(nombreEjercicio) {
 // hasta aqui tengo una lista con los ejercicios que quiero agregar a la DB
 
 
-function guardarCambios() {
+function guardarCambios(routine) {
     const form = document.getElementById("form-rutina-exercise");
 
     // Crear un array de objetos con los valores de ejerciciosAgregados
     const ejerciciosAgregadosData = ejerciciosAgregados.map(ejercicio => ({
+        routine_id: routine,
         exercise: ejercicio.nombre,
         repetitions: ejercicio.repeticiones,
         sets: ejercicio.sets
     }));
 
-    // Convertir el array de objetos a JSON
     const jsonEjerciciosAgregados = JSON.stringify(ejerciciosAgregadosData);
 
-    return jsonEjerciciosAgregados;
+    return console.log(jsonEjerciciosAgregados);
 }
+
 
 function guardarRutina() {
 

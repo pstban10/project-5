@@ -1,10 +1,12 @@
 import json
+from urllib.parse import parse_qs
 from django.views import View
+from django.views.generic import ListView, CreateView
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .forms import ExerciseForm, ProfileForm, RoutineExerciseForm, UserRoutinesForm, RoutinesForm
 from .models import Exercise, UserProfile, UserRoutine, Routine, RoutineExercise
 from django.contrib.auth.decorators import login_required
@@ -61,127 +63,61 @@ def aggejercicio(request):
         context={'form': form})
 
 
-def rutinas(request):
-    rutinas = Routine.objects.all()
-
-    return render(
-        request,
-        'rutinas/rutinas.html',
-        context={'rutinas': rutinas})
+class RutinasList(ListView):
+    model = Routine
+    template_name = 'rutinas/rutinas.html'
 
 
-class Rutinas(View):
-    # con esta funcion se mostrara una vita que cargue las rutinas
-    def get(self, request):
-        rutinasHechas = list(Routine.objects.values())
-        if len(rutinasHechas) > 0:
-            datos = {'mensaje': 'aqui está la data', 'rutinas': rutinasHechas}
-
-        else:
-            datos = {'mensaje': 'la data no existe'}
-
-        return render(
-            request,
-            'rutinas/rutinas.html',
-            context={'datos': datos}
-        )
-    # con esta vista se mostrará una rutina seleccionada en la vista anterior
-
-    def aggRut(self, request):
-        datos = {'mensaje': 'rutina creada con exito'}
-        jd = json.loads(request.body)
-
-        if 'rutinas' in jd:
-            form = RoutinesForm(request.POST)
-            form.save()
-            id = form.instance.id
-            return redirect(reverse('addRutExer', kwargs={'id': id}))
-        else:
-            datos = {'mensaje': 'no se encontraron datos'}
-            form = RoutinesForm()
-
-        return render(
-            request,
-            'rutinas/crearRutina.html',
-            context={'datos': datos, 'form': form})
-
-    def put(self, request):
-        pass
-
-    def delete(self, request):
-        pass
+class RutinasCreator(CreateView):
+    model = Routine
+    form_class = RoutinesForm
+    template_name = 'rutinas/crearRutina.html'
+    success_url = reverse_lazy('rutina:RutinasEditor')
 
 
-def getRut(request, id):
+class RutinaEditor(ListView):
+    model = Exercise
+    form_class = RoutineExerciseForm
+    template_name = 'rutinas/addRutExe.html'
+    success_url = reverse_lazy('rutina:RutinasList')
 
-    rutinas = RoutineExercise.objects.all()
-    rutina = rutinas.filter(routine_id=id)
-
-    if len(rutina) > 0:
-        datos = {'mensaje': 'aqui está la data', 'rutina': rutina}
-
-    else:
-        datos = {'mensaje': 'la rutina está vacía'}
-
-    return render(
-        request,
-        'rutinas/rutina.html',
-        context={'datos': datos}
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rutina'] = Routine.objects.get(id=self.kwargs['id'])
+        return context
 
 
-class Ejercicios(View):
-    """ def aggExercises(self, request):
-
-        datos = {'mensaje': 'rutina creada con exito'}
-        jd = json.loads(request.body)
-
-        if 'rutinas' in jd:
-            rutinas_data = jd['rutinas']
-            for element in rutinas_data:
-                RoutineExercise.objects.create(
-                    routine_id=element['routine_id'],
-                    exercise_id=element['exercise_id'],
-                    repetitions=element['repetitions'],
-                    sets=element['sets']
-                )
-        else:
-            datos = {
-                'mensaje': 'La clave "rutinas" no está presente en los datos JSON'}
-
-        return JsonResponse(datos) """
-    pass
-
-
-def aggRut(request):
+def newRut(request):
     if request.method == 'POST':
+        form = RoutinesForm(request.POST)
+        form.save()
+        RutId = Routine.objects.last().id
+        return redirect('RutinaEditor', id=RutId)
+    else:
+        return redirect('RutinasCreator')
+
+
+def putRut(request):
+
+    if request.method == 'POST':
+
+        print('hola')
+
+    """ if 'rutinas' in jd:
         form = RoutinesForm(request.POST)
         form.save()
         id = form.instance.id
         return redirect(reverse('addRutExer', kwargs={'id': id}))
     else:
-        form = RoutinesForm()
+        datos = {'mensaje': 'no se encontraron datos'}
+        form = RoutinesForm() """
 
-    return render(
-        request,
-        'rutinas/crearRutina.html',
-        context={'form': form})
+    """ for element in data['rutinas']:
+        RoutineExercise.objects.create(
+            routine_id=element['routine_id'],
+            exercise_id=element['exercise_id'],
+            repetitions=element['repetitions'],
+            sets=element['sets']
+        ) """
 
-
-def aggRutExer(request, id):
-    rutina = Routine.objects.get(id=id)
-    ejercicios = Exercise.objects.all()
-
-    return render(
-        request,
-        'rutinas/addRutExe.html',
-        context={'rutina': rutina, 'ejercicios': ejercicios}
-    )
-
-
-def rutina(request, id):
-    rutina = Routine.objects.get(id=id)
-    return render(
-        request,
-        'rutinas/rutina.html',
-        context={'rutina': rutina})
+    return redirect('RutinasList')

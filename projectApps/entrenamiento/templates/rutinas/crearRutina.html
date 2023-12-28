@@ -3,8 +3,7 @@
 {% block content %}
 {% load crispy_forms_tags %}
 <div class="input-group mb-3">
-    {{ datos }}
-    <form novalidate action={% url 'Rutinas' %} method='post'>
+    <form novalidate action={% url 'newRutina' %} method='post'>
         {% csrf_token %}  
         {{ form | crispy }}
         

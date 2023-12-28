@@ -8,7 +8,7 @@
 <h3>Rutinas para elegir</h3>
 {% if user.is_authenticated %}
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <a href={% url 'aggRut' %}><button class="btn btn-primary me-md-2" type="button">Crear nueva rutina</button></a>   
+    <a href={% url 'RutinasCreator' %}><button class="btn btn-primary me-md-2" type="button">Crear nueva rutina</button></a>   
 </div>
 {% endif %}
 <table class="table">
@@ -20,23 +20,25 @@
             <th>Descripción</th>
         </tr>
         <tbody>
-        {% for r in datos.rutinas %}
+        {% if object_list %}
+            {% for r in object_list %}
             <tr>
                 <td>{{ r.routine_name }}</td>
                 <td>{{ r.category }}</td>
                 <td>{{ r.level }}</td>
                 <td>{{ r.description }}</td>
-                <td><a href={% url 'Rutinas' id=r.id %}><button class="btn btn-primary me-md-2" type="button">ver rutina</button></a></td>
+                <td><a href={% url 'RutinasList' %}><button class="btn btn-primary me-md-2" type="button">ver rutina</button></a></td>
                 {% if user.is_superuser %}
-                    <td><a href={% url 'Rutinas' %}><button class="btn btn-primary me-md-2" type="button">editar rutina</button></a></td>
+                    <td><a href={% url 'RutinaEditor' id=r.id %}><button class="btn btn-primary me-md-2" type="button">editar rutina</button></a></td>
                 {% endif %}
 
             </tr>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+        <h2>No hay rutinas para ti, anda pashá bobo</h2>
+        {% endif %}
             </tbody>
     </thead>
 </table>
-
-
 
 {% endblock %}

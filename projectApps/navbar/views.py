@@ -8,26 +8,29 @@ from .forms import RegisterForm
 
 # Create your views here.
 
-
+@login_required
 def inicio(request):
-    return render(
-        request,
-        'base.html',
-    )
-
-
-"""  if User.is_authenticated:
+    try:
         perfil = UserProfile.objects.get(user=request.user)
 
         return render(
             request,
             'base.html',
             context={'perfil': perfil}
-        ) """
+        )
+    except UserProfile.DoesNotExist:
+        perfil = UserProfile.objects.create(user=request.user)
+    return render(
+        request,
+        'base.html'
+    )
 
 
 @login_required
 def perfil(request):
+    user = UserProfile(request)
+    if not user:
+        return redirect('edit_perfil')
 
     return render(
         request,
