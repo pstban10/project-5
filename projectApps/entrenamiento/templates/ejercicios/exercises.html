@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block content%}
 <h3>ejercicios de calistenia</h3>
@@ -17,7 +17,8 @@
             <th>Video</th>
         </tr>
         <tbody>
-        {% for ejercicio in ejercicios %}
+        {% if object_list %}
+            {% for ejercicio in object_list %}       
             <tr>
                 <td>{{ ejercicio.exercise_name }}</td>
                 <td>{{ ejercicio.description }}</td>
@@ -26,7 +27,8 @@
                     <source src="{{ ejercicio.url_video }}" type="video/mp4">
                 </video> </td>
             </tr>
-        {% endfor %}
+            {% endfor %}
+        {%endif%}
             </tbody>
     </thead>
 </table>

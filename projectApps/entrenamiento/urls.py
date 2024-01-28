@@ -7,7 +7,7 @@ urlpatterns = [
     path('perfil/', views.perfil, name='perfil'),
     path('edit_perfil/', views.edit_perfil, name='edit_perfil'),
     # EJERCICIOS
-    # path('ejercicios/', views.Ejercicios, name='ejercicios'),
+    path('ejercicios/', views.Ejercicios.as_view(), name='ejercicios'),
     path('addex/', views.aggejercicio, name='addex'),
     # RUTINAS
     path('RutinasList', views.RutinasList.as_view(), name='RutinasList'),
@@ -16,6 +16,6 @@ urlpatterns = [
          views.RutinaEditor.as_view(), name='RutinaEditor'),
     path('newRutina', views.newRut, name='newRutina'),
     path('putRut/', views.putRut, name='putRut'),
-    # path('Rutinas/<int:id>/', views.Rutinas.as_view(), name='Rutinas'),
+    path('rutina/<int:id>/', views.rutina, name='rutina'),
 
 ]

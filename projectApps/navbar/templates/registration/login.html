@@ -2,6 +2,9 @@
 {% block content %}
 
 {% load crispy_forms_tags %}
+{% load static%}
+
+
 <form action="" method="post">
     {% csrf_token %}
     <h1>LOGIN</h1>
@@ -11,4 +14,7 @@
     <button type="submit" class="btn btn-primary me-md-2">inicia sesión</button>
     </form>
 <a href={% url 'registro' %}><button class="btn btn-primary me-md-2" type="submit">Registrate aquí</button></a>
+<a href={% url 'registro' %}><button class="btn btn-primary me-md-2" type="submit">Inicia sesion con Google</button></a>
+
+
 {% endblock %}

@@ -1,30 +1,39 @@
-{% extends "base.html" %}
+{% extends "menu.html" %}
 {% block content %}
 
-
-
-<h3>Usuario <strong>{{ perfil.user.username }}</strong></h3>
-
-<h3>Dirección <strong>{{ perfil.address }}</strong></h3>
-
-<h3>Peso <strong>{{ perfil.weight }}</strong></h3>
-
-<h3>Altura <strong>{{ perfil.height }}</strong></h3>
-
-<h3>Nivel de actividad <strong>{{ perfil.activity_level }}</strong></h3>
-
-<h3>fecha de nacimiento <strong>{{ perfil.birth_date }}</strong></h3>
-
-<h3>Genero <strong>{{ perfil.gender }}</strong></h3>
-
-<h3>Observaciones <strong>{{ perfil.observations }}</strong></h3>
-
-<h3>Foto de perfil <img src={{ perfil.profile_picture }} alt='foto_perfil' /></h3>
-
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <a href={% url 'edit_perfil' %}><button class="btn btn-primary me-md-2" type="button">Editar perfil</button></a>
+{%load static %}
+<div class="container d-flex align-items-stretch w-47">
+  
+  
+  <div class="container-fluid">
+    <h2><strong>{{ perfil.user.username }}</strong></h2>
+    <h3>Dirección <br>
+      <strong>{{ perfil.address }}</strong></h3>
+    <h3>Peso <br>
+      <strong>{{ perfil.weight }}</strong></h3>
+    <h3>Altura <br>
+      <strong>{{ perfil.height }}</strong></h3>
+    <h3>Nivel de actividad <br>
+      <strong>{{ perfil.activity_level }}</strong></h3>
+    <h3>fecha de nacimiento <br>
+      <strong>{{ perfil.birth_date }}</strong></h3>
+    <h3>Genero <br>
+      <strong>{{ perfil.gender }}</strong></h3>
+        
+    <h3>Observaciones <br>
+    <strong>{{ perfil.observations }}</strong></h3>
   </div>
-
-
-
-  {% endblock%}
+  <div class="d-flex flex-column mb-3 w-47 p-3">
+    {% if perfil.profile_picture %}
+      <div class="img-fluid w-80">
+        <img src="{{ perfil.profile_picture.url }}" class="rounded" style="width: 10rem; height: 10rem;" alt='foto_perfil' />
+      </div>
+    {% else %}
+      <div class="img-fluid w-80">
+        <img src={% static 'imgs/guest.jpg' %} class="rounded float-end" style="width: 10rem; height: 10rem;" alt='foto_perfil' />
+      </div>  
+    {%endif%}
+    <a href={% url 'edit_perfil' %}><button class="btn btn-secondary me-md-2 align-bottom justify-content-md-end" type="button">Editar perfil</button></a>
+  </div>
+</div>
+      {% endblock%}

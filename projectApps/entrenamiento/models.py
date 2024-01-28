@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.forms import ValidationError
+from phonenumber_field.modelfields import PhoneNumberField
+from django.utils.translation import gettext_lazy as _
 
 
 class UserProfile(models.Model):
@@ -18,6 +21,9 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=255)
+    phone = PhoneNumberField(_("Numero de Contacto"),
+                             null=True,
+                             blank=True)
     registration_date = models.DateField(auto_now_add=True)
     weight = models.DecimalField(
         max_digits=5,
@@ -42,7 +48,10 @@ class UserProfile(models.Model):
     observations = models.CharField(
         max_length=600, null=True, blank=True)
     profile_picture = models.ImageField(
-        upload_to='imgsprofile_pics', null=True, blank=True)
+        upload_to='profile_pics',
+        null=True,
+        blank=True,
+        default='profile_pics/guest.jpg')
 
     def __str__(self):
         return self.user.username

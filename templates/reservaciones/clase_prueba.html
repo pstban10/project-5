@@ -1,0 +1,25 @@
+{%extends "menu.html"%}
+{%block content%}
+{%load crispy_forms_tags %}
+
+{% load static %}
+
+<script src="{% static 'js/reserva.js' %}"></script>
+
+<div class="container mb-3">
+    <h2>RESERVAR CLASE</h2>
+    <h3>Reserva una clase de prueba GRATIS </h3>
+    <form>
+        <label for='Locations' class="form-label">Elige donde quieres entrenar con nosotros:</label><br />
+        <select id='Locations' class="form-control"></select>
+        <br />
+        <label for='fecha' class="form-label">que día?:</label><br />
+        <input type='date' id="fecha" name="fecha" class="form-control" min="{% now "Y-m-d" %}">
+        <br />
+        <label for='hours' class="form-label">Elige el horario:</label><br />
+        <select id='hours' class="form-control"></select>
+        <br />
+    </form>
+
+</div>
+{%endblock%}

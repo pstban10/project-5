@@ -1,12 +1,30 @@
+import os
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views.generic import CreateView
 from django.contrib.auth import authenticate, login, logout
 from ..entrenamiento.models import UserProfile
 from .forms import RegisterForm
 
 
 # Create your views here.
+def init(request):
+    try:
+        if request.user.is_authenticated:
+            perfil = UserProfile.objects.get(user=request.user)
+
+            return render(
+                request,
+                'index.html',
+                context={'perfil': perfil}
+            )
+        else:
+            return render(request, 'index.html')
+    except UserProfile.DoesNotExist:
+
+        return render(request, 'index.html')
+
 
 @login_required
 def inicio(request):
@@ -27,23 +45,27 @@ def inicio(request):
 
 
 @login_required
-def perfil(request):
-    user = UserProfile(request)
-    if not user:
-        return redirect('edit_perfil')
+def navegando(request):
+    try:
+        perfil = UserProfile.objects.get(user=request.user)
 
+        return render(
+            request,
+            'base2.html',
+            context={'perfil': perfil}
+        )
+    except UserProfile.DoesNotExist:
+        perfil = UserProfile.objects.create(user=request.user)
     return render(
         request,
-        'perfil.html'
+        'base.html'
     )
 
+# Vista de recuperación de contraseña
 
-def contacto(request):
 
-    return render(
-        request,
-        'contacto.html'
-    )
+class PasswordResetView(CreateView):
+    pass
 
 
 def registro(request):

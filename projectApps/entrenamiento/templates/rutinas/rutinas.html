@@ -27,7 +27,7 @@
                 <td>{{ r.category }}</td>
                 <td>{{ r.level }}</td>
                 <td>{{ r.description }}</td>
-                <td><a href={% url 'RutinasList' %}><button class="btn btn-primary me-md-2" type="button">ver rutina</button></a></td>
+                <td><a href={% url 'rutina' id=r.id %}><button class="btn btn-primary me-md-2" type="button">ver rutina</button></a></td>
                 {% if user.is_superuser %}
                     <td><a href={% url 'RutinaEditor' id=r.id %}><button class="btn btn-primary me-md-2" type="button">editar rutina</button></a></td>
                 {% endif %}

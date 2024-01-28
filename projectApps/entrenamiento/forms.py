@@ -8,6 +8,7 @@ class ProfileForm(ModelForm):
         model = models.UserProfile
         fields = [
             'address',
+            'phone',
             'weight',
             'height',
             'activity_level',

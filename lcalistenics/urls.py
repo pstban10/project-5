@@ -7,9 +7,10 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('projectApps.navbar.urls')),
     path('bh/', include('projectApps.entrenamiento.urls')),
-    path('agd/', include('projectApps.agenda.urls')),
+    path('cls/', include('projectApps.clases.urls')),
     path('admin/', admin.site.urls),
-    path('accounts/', include(cuentas)),
+    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include(cuentas)),
 
 ]
 

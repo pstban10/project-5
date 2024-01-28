@@ -1,12 +1,10 @@
 import json
-from urllib.parse import parse_qs
+
 from django.views import View
 from django.views.generic import ListView, CreateView
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from django.utils.decorators import method_decorator
-from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse, reverse_lazy
+
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from .forms import ExerciseForm, ProfileForm, RoutineExerciseForm, UserRoutinesForm, RoutinesForm
 from .models import Exercise, UserProfile, UserRoutine, Routine, RoutineExercise
 from django.contrib.auth.decorators import login_required
@@ -29,7 +27,7 @@ def edit_perfil(request):
     form = ProfileForm(instance=perfil)
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=perfil)
+        form = ProfileForm(request.POST, request.FILES, instance=perfil)
         if form.is_valid():
             form.save()
             return redirect('perfil')
@@ -37,7 +35,7 @@ def edit_perfil(request):
     return render(
         request,
         'perfil/edit_profile.html',
-        context={'form': form})
+        context={'form': form, 'perfil': perfil})
 
 
 def ejercicios(request):
@@ -61,6 +59,17 @@ def aggejercicio(request):
         request,
         'ejercicios/aggejercicio.html',
         context={'form': form})
+
+
+def rutina(request, id):
+    ruti = {'rutina': id,
+            'ejercicios': RoutineExercise.objects.filter(routine_id=id)}
+
+    return render(
+        request,
+        'rutinas/rutina.html',
+        context={'ruti': ruti}
+    )
 
 
 class RutinasList(ListView):
@@ -100,24 +109,23 @@ def newRut(request):
 def putRut(request):
 
     if request.method == 'POST':
+        jd = json.loads(request.body)
 
-        print('hola')
+    for element in jd:
+        exercise_name = element['exercise']
+        exercise = Exercise.objects.get(exercise_name=exercise_name)
 
-    """ if 'rutinas' in jd:
-        form = RoutinesForm(request.POST)
-        form.save()
-        id = form.instance.id
-        return redirect(reverse('addRutExer', kwargs={'id': id}))
-    else:
-        datos = {'mensaje': 'no se encontraron datos'}
-        form = RoutinesForm() """
-
-    """ for element in data['rutinas']:
         RoutineExercise.objects.create(
             routine_id=element['routine_id'],
-            exercise_id=element['exercise_id'],
+            exercise_id=exercise.id,
             repetitions=element['repetitions'],
             sets=element['sets']
-        ) """
-
+        )
     return redirect('RutinasList')
+
+# EJERCICIOS
+
+
+class Ejercicios(ListView):
+    model = Exercise
+    template_name = 'ejercicios/exercises.html'

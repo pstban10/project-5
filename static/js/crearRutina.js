@@ -60,8 +60,30 @@ function guardarCambios(routine) {
     }));
 
     const jsonEjerciciosAgregados = JSON.stringify(ejerciciosAgregadosData);
+    const csrfToken = form.querySelector("[name=csrfmiddlewaretoken]").value;
 
-    return jsonEjerciciosAgregados;
+    fetch('/bh/putRut/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+        body: jsonEjerciciosAgregados
+    })
+        .then(response => {
+            // Verifica el código de estado de la respuesta
+            if (response.ok) {
+                // La solicitud se realizó correctamente
+                alert("Los datos se guardaron correctamente");
+            } else {
+                // Ocurrió un error
+                alert("Ocurrió un error: " + response.statusText);
+            }
+        })
+        .catch(error => {
+            // Muestra un mensaje de error al usuario
+            alert("Ocurrió un error: " + error.message);
+        });
 }
 
 

@@ -33,20 +33,47 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.forms',
+
+
+
 ]
 PROJECT_APPS = [
     'projectApps.navbar.apps.NavbarConfig',
     'projectApps.entrenamiento.apps.EntrenamientoConfig',
-    'projectApps.agenda.apps.AgendaConfig'
+    'projectApps.clases.apps.ClasesConfig',
 ]
 TRIRD_PARTY_APPS = [
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.instagram',
     'crispy_forms',
     'crispy_bootstrap5',
+    "phonenumber_field",
 ]
+
+INSTALLED_APPS = PROJECT_APPS+DJANGO_APPS+TRIRD_PARTY_APPS
+
+# configuracion crispyforms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-INSTALLED_APPS = PROJECT_APPS+DJANGO_APPS+TRIRD_PARTY_APPS
+# configuración cuentas de redes sociales
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    }
+
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,8 +83,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 
 ]
+SOCIALACCOUNT_PROVIDERS = {
+
+}
 
 ROOT_URLCONF = 'lcalistenics.urls'
 
@@ -75,6 +106,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+AUTHENTICATION_BACKENDS = [
+
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'lcalistenics.wsgi.application'
@@ -116,7 +152,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'es-AR'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
@@ -137,5 +173,23 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+
 LOGIN_REDIRECT_URL = 'inicio'
 LOGOUT_REDIRECT_URL = 'inicio'
+
+# envío de mails
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'masterking2301@gmail.com'
+EMAIL_HOST_PASSWORD = 'fdns njgf khzw vvsl'
+EMAIL_USE_TLS = True
